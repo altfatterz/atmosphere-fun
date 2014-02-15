@@ -2,6 +2,7 @@ package com.backbase.progfun.atmosphere;
 
 import static com.backbase.progfun.atmosphere.Event.ACCOUNT_CREDITED;
 import static com.backbase.progfun.atmosphere.Event.ACCOUNT_DEBITED;
+import static com.backbase.progfun.atmosphere.Event.ACCOUNT_LOCKED;
 
 import java.util.Random;
 
@@ -21,11 +22,13 @@ public class AccountBalanceProcessor implements Processor {
 
         Message out = exchange.getOut();
 
-        int id = randomGenerator.nextInt(2);
+        int id = randomGenerator.nextInt(3);
         if (id == 0) {
             out.setBody(new com.backbase.progfun.atmosphere.Message(ACCOUNT_CREDITED, String.valueOf(id)));
         } else if (id == 1) {
             out.setBody(new com.backbase.progfun.atmosphere.Message(ACCOUNT_DEBITED, String.valueOf(id)));
+        } else if (id == 2) {
+            out.setBody(new com.backbase.progfun.atmosphere.Message(ACCOUNT_LOCKED, String.valueOf(id)));
         }
     }
 }

@@ -6,12 +6,13 @@ $(function () {
     var status = $('#status');
     var socket = atmosphere;
     var subSocket;
-    var transport = 'long-polling';
+    var transport = 'websocket';
     var fallbackTransport = 'long-polling';
     var sessionId;
 
     var isFirefox = typeof InstallTrigger !== 'undefined';
     var isChrome = !!window.chrome;
+    var isIE = false || !!document.documentMode;
 
     if (isFirefox) {
         sessionId = 0;
@@ -19,6 +20,10 @@ $(function () {
     if (isChrome) {
         sessionId = 1;
     }
+    if (isIE) {
+        sessionId = 2;
+    }
+
 
     // We are now ready to cut the request
     var request = { url: document.location.toString() + 'event',
